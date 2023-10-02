@@ -5,13 +5,13 @@ import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 import EditorToolbar from "../EditorToolbar/EditorToolbar.jsx";
-import NoteViewer from "../NoteViewer/NoteViewer.jsx";
 import "./NoteEditor.scss";
 
 export default function NoteEditor() {
   const [editMode, setEditMode] = useState(false);
   const [content, setContent] = useState("");
 
+  console.log(content);
   const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
@@ -27,13 +27,14 @@ export default function NoteEditor() {
     }),
   ];
 
-  function handleSaveNote() {
+  function handleSaveNote(userInput) {
     const note = {
       title: "New Note",
-      content: content,
+      content: userInput,
     };
     const createdAt = new Date().toISOString();
     localStorage.setItem(createdAt, JSON.stringify(note));
+    setContent(userInput);
     setEditMode(false);
   }
 
@@ -45,6 +46,7 @@ export default function NoteEditor() {
           editable={editMode}
           extensions={extensions}
           content={content}
+          onChange={(newContent) => setContent(newContent)}
           slotBefore={
             <EditorToolbar
               editMode={editMode}

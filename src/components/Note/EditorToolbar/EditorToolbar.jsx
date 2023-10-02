@@ -171,7 +171,7 @@ export default function EditorToolbar({
           <button
             onClick={() => {
               setEditMode(false);
-              handleSaveNote();
+              handleSaveNote(editor.getHTML());
             }}
           >
             <MdLockOutline />
