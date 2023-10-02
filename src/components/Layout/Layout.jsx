@@ -1,10 +1,10 @@
 import NoteEditor from "./../../components/Note/NoteEditor/NoteEditor.jsx";
 import "./Layout.scss";
 
-export default function Layout() {
+export default function Layout({ handleAddNote }) {
   return (
     <>
-      <NoteEditor />
+      <NoteEditor handleAddNote={handleAddNote} />
     </>
   );
 }

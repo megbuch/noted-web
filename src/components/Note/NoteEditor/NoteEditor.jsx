@@ -7,11 +7,10 @@ import StarterKit from "@tiptap/starter-kit";
 import EditorToolbar from "../EditorToolbar/EditorToolbar.jsx";
 import "./NoteEditor.scss";
 
-export default function NoteEditor() {
+export default function NoteEditor({ handleAddNote }) {
   const [editMode, setEditMode] = useState(false);
   const [content, setContent] = useState("");
 
-  console.log(content);
   const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
@@ -28,12 +27,13 @@ export default function NoteEditor() {
   ];
 
   function handleSaveNote(userInput) {
-    const note = {
+    const newNote = {
       title: "New Note",
       content: userInput,
     };
     const createdAt = new Date().toISOString();
-    localStorage.setItem(createdAt, JSON.stringify(note));
+    localStorage.setItem(createdAt, JSON.stringify(newNote));
+    handleAddNote(newNote);
     setContent(userInput);
     setEditMode(false);
   }
