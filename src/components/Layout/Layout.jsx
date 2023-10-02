@@ -1,1 +1,10 @@
-// Serve as container of the app with three columns: Folders, Notes, and Note Viewer.
+import NoteEditor from "./../../components/Note/NoteEditor/NoteEditor.jsx";
+import "./Layout.scss";
+
+export default function Layout() {
+  return (
+    <>
+      <NoteEditor />
+    </>
+  );
+}

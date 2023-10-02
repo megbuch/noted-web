@@ -22,6 +22,7 @@ import {
   MdLockOutline,
   MdLockOpen,
 } from "react-icons/md";
+import "./EditorToolbar.scss";
 
 export default function EditorToolbar({
   editMode,
@@ -34,6 +35,20 @@ export default function EditorToolbar({
     <div className="EditorToolbar">
       {editMode ? (
         <>
+          <div>
+            <button
+              onClick={() => editor.chain().focus().undo().run()}
+              disabled={!editor.can().chain().focus().undo().run()}
+            >
+              <LuUndo />
+            </button>
+            <button
+              onClick={() => editor.chain().focus().redo().run()}
+              disabled={!editor.can().chain().focus().redo().run()}
+            >
+              <LuRedo />
+            </button>
+          </div>
           <div>
             <button
               onClick={() => editor.chain().focus().toggleBold().run()}
@@ -151,20 +166,6 @@ export default function EditorToolbar({
               onClick={() => editor.chain().focus().setHorizontalRule().run()}
             >
               <MdHorizontalRule />
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => editor.chain().focus().undo().run()}
-              disabled={!editor.can().chain().focus().undo().run()}
-            >
-              <LuUndo />
-            </button>
-            <button
-              onClick={() => editor.chain().focus().redo().run()}
-              disabled={!editor.can().chain().focus().redo().run()}
-            >
-              <LuRedo />
             </button>
           </div>
           <button

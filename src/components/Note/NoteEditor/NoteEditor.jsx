@@ -6,6 +6,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 import EditorToolbar from "../EditorToolbar/EditorToolbar.jsx";
 import NoteViewer from "../NoteViewer/NoteViewer.jsx";
+import "./NoteEditor.scss";
 
 export default function NoteEditor() {
   const [editMode, setEditMode] = useState(false);
@@ -38,27 +39,23 @@ export default function NoteEditor() {
 
   return (
     <>
-      {editMode ? (
-        <div className="NoteEditor">
-          <EditorProvider
-            key={editMode.toString()}
-            editable={editMode}
-            extensions={extensions}
-            content={content}
-            slotBefore={
-              <EditorToolbar
-                editMode={editMode}
-                setEditMode={setEditMode}
-                handleSaveNote={handleSaveNote}
-              />
-            }
-          >
-            <EditorContent />
-          </EditorProvider>
-        </div>
-      ) : (
-        <NoteViewer />
-      )}
+      <div className="NoteEditor">
+        <EditorProvider
+          key={editMode.toString()}
+          editable={editMode}
+          extensions={extensions}
+          content={content}
+          slotBefore={
+            <EditorToolbar
+              editMode={editMode}
+              setEditMode={setEditMode}
+              handleSaveNote={handleSaveNote}
+            />
+          }
+        >
+          <EditorContent />
+        </EditorProvider>
+      </div>
     </>
   );
 }

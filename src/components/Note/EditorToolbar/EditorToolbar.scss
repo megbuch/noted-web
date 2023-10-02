@@ -1,0 +1,11 @@
+.EditorToolbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--blue-muted);
+  border-radius: 8px;
+
+  .is-active {
+    background-color: var(--blue-muted-bright);
+  }
+}

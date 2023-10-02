@@ -1,13 +1,10 @@
+import Layout from "./../../components/Layout/Layout.jsx";
 import "./App.scss";
-import NoteEditor from "./../../components/Note/NoteEditor/NoteEditor.jsx";
 
-function App() {
+export default function App() {
   return (
     <>
-      <h1>Noted</h1>
-      <NoteEditor />
+      <Layout />
     </>
   );
 }
-
-export default App;
