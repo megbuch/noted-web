@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { EditorProvider, EditorContent } from "@tiptap/react";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
@@ -56,11 +57,11 @@ export default function NoteEditor({
           note.createdAt === selectedNote.createdAt ? newNote : note
         );
       });
-      setSelectedNote(newNote);
     } else {
       addNoteToNotesList(newNote);
     }
 
+    setSelectedNote(newNote);
     setEditMode(false);
   }
 

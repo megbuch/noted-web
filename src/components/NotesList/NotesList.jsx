@@ -1,3 +1,4 @@
+import { MdOutlineAddCircleOutline } from "react-icons/md";
 import "./NotesList.scss";
 
 export default function NotesList({
@@ -13,7 +14,10 @@ export default function NotesList({
 
   return (
     <div className="NotesList">
-      <button onClick={createNewNote}>Create New Note</button>
+      <div className="create-new-note" onClick={createNewNote}>
+        <MdOutlineAddCircleOutline />
+        <p>Create New Note</p>
+      </div>
       {notes ? (
         notes
           .slice()
@@ -24,7 +28,11 @@ export default function NotesList({
               key={note.createdAt}
               onClick={() => selectNote(note)}
             >
-              <p>{note.title}</p>
+              <p>
+                {note.title.length > 30
+                  ? `${note.title.slice(0, 30)}...`
+                  : note.title}
+              </p>
             </div>
           ))
       ) : (

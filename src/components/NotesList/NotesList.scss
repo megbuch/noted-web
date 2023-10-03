@@ -1,11 +1,30 @@
 .NotesList {
-  width: 20%;
+  width: 15%;
   display: flex;
   flex-direction: column;
 
+  .create-new-note {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    border: 1px solid var(--blue-muted);
+    border-radius: 8px;
+    padding: 0.3em 0em;
+    transition: background-color 0.25s;
+
+    &:hover {
+      background-color: var(--blue-muted-hover);
+      cursor: pointer;
+    }
+  }
+
   .note {
-    padding: 0.7em;
-    margin: 4px;
+    padding: 1em;
+    margin: 0 0 8px 0;
     border-radius: 8px;
     background-color: var(--blue-muted);
     cursor: pointer;
