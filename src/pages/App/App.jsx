@@ -16,7 +16,7 @@ export default function App() {
       try {
         const note = JSON.parse(item);
         if (note && note.title && note.content) {
-          loadedNotes.push(note);
+          loadedNotes.unshift(note);
         }
       } catch (err) {
         console.error("Error parsing note from storage: ", err);
@@ -35,7 +35,7 @@ export default function App() {
 
   return (
     <>
-      <Layout handleAddNote={handleAddNote} />
+      <Layout notes={notes} handleAddNote={handleAddNote} />
     </>
   );
 }

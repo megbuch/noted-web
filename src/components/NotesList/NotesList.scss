@@ -1,0 +1,12 @@
+.NotesList {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+
+  .note {
+    padding: 0.7em;
+    margin: 4px;
+    border-radius: 8px;
+    background-color: var(--blue-muted);
+  }
+}

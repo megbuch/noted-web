@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@tiptap/extension-color": "^2.1.11",
+    "@tiptap/extension-placeholder": "^2.1.11",
     "@tiptap/extension-text-style": "^2.1.11",
     "@tiptap/pm": "^2.1.11",
     "@tiptap/react": "^2.1.11",
