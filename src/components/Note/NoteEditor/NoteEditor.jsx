@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { EditorProvider, EditorContent } from "@tiptap/react";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
@@ -8,10 +7,14 @@ import StarterKit from "@tiptap/starter-kit";
 import EditorToolbar from "../EditorToolbar/EditorToolbar.jsx";
 import "./NoteEditor.scss";
 
-export default function NoteEditor({ handleAddNote }) {
-  const [editMode, setEditMode] = useState(true);
-  const [content, setContent] = useState("");
-
+export default function NoteEditor({
+  setNotes,
+  selectedNote,
+  setSelectedNote,
+  addNoteToNotesList,
+  editMode,
+  setEditMode,
+}) {
   const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
@@ -30,9 +33,14 @@ export default function NoteEditor({ handleAddNote }) {
     }),
   ];
 
-  function handleSaveNote(userInput) {
-    const createdAt = new Date().toISOString();
-    const title = extractTitleFromHTML(userInput);
+  function saveNote(userInput) {
+    let createdAt = Date.now();
+    let title = extractTitleFromHTML(userInput);
+
+    if (selectedNote) {
+      localStorage.removeItem(selectedNote.createdAt);
+      title = extractTitleFromHTML(userInput);
+    }
 
     const newNote = {
       title: title,
@@ -41,8 +49,18 @@ export default function NoteEditor({ handleAddNote }) {
     };
 
     localStorage.setItem(createdAt, JSON.stringify(newNote));
-    handleAddNote(newNote);
-    setContent(userInput);
+
+    if (selectedNote) {
+      setNotes((prevNotes) => {
+        return prevNotes.map((note) =>
+          note.createdAt === selectedNote.createdAt ? newNote : note
+        );
+      });
+      setSelectedNote(newNote);
+    } else {
+      addNoteToNotesList(newNote);
+    }
+
     setEditMode(false);
   }
 
@@ -55,18 +73,17 @@ export default function NoteEditor({ handleAddNote }) {
   }
 
   return (
-    <div className="NoteEditor">
+    <div className={`NoteEditor ${editMode ? "editing" : ""}`}>
       <EditorProvider
-        key={editMode.toString()}
+        key={selectedNote?.createdAt || Date.now()}
+        content={selectedNote?.content || ""}
         editable={editMode}
         extensions={extensions}
-        content={content}
-        onChange={(newContent) => setContent(newContent)}
         slotBefore={
           <EditorToolbar
             editMode={editMode}
             setEditMode={setEditMode}
-            handleSaveNote={handleSaveNote}
+            saveNote={saveNote}
           />
         }
       >

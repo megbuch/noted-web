@@ -24,12 +24,12 @@ import {
 } from "react-icons/md";
 import "./EditorToolbar.scss";
 
-export default function EditorToolbar({
-  editMode,
-  setEditMode,
-  handleSaveNote,
-}) {
+export default function EditorToolbar({ editMode, setEditMode, saveNote }) {
   const { editor } = useCurrentEditor();
+
+  if (editor) {
+    editor.setEditable(editMode);
+  }
 
   return (
     <div className="EditorToolbar">
@@ -170,8 +170,7 @@ export default function EditorToolbar({
           </div>
           <button
             onClick={() => {
-              setEditMode(false);
-              handleSaveNote(editor.getHTML());
+              saveNote(editor.getHTML());
             }}
           >
             <MdLockOutline />

@@ -6,7 +6,7 @@
   border-radius: 8px;
 
   .tiptap {
-    background-color: var(--blue-dark);
+    background-color: transparent;
     width: 100%;
     min-height: 60vh;
     padding: 1em;
@@ -40,12 +40,12 @@
 
     code {
       background-color: var(--blue-muted-dark);
-      color: var(--periwinkle-light);
+      color: var(--code);
     }
 
     pre {
       background-color: var(--blue-muted-dark);
-      color: var(--periwinkle-light);
+      color: var(--code);
       font-family: "JetBrainsMono", monospace;
       padding: 0.75rem 1rem;
       border-radius: 0.5rem;
@@ -74,5 +74,11 @@
       margin: 1.5em 0;
     }
     border-radius: 8px;
+  }
+
+  &.editing {
+    .tiptap {
+      background-color: var(--blue-gray);
+    }
   }
 }

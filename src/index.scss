@@ -15,22 +15,14 @@
 
   --white: #fff;
   --black: #000;
+  --blue-gray: #2b2b3a;
 
-  --gray-darkest: #181818;
-  --gray-dark: #242424;
-  --gray: #2e2e2e;
-  --gray-light: #756f6f;
-
-  --blue: #1e1e74;
-  --blue-dark: #0e0e1b;
-
-  --blue-muted: #22223a;
+  --blue-muted: #32325e;
   --blue-muted-dark: #14141f;
-  --blue-muted-bright: #3e3e97;
 
-  --periwinkle: #646cff;
-  --periwinkle-light: #d9dbfa;
-  --periwinkle-bright: #525bff;
+  --periwinkle: #464fff;
+
+  --code: #fff1e6;
 }
 
 * {
@@ -47,6 +39,10 @@ a {
   &:hover {
     color: var(--periwinkle-bright);
   }
+}
+
+body {
+  color: white;
 }
 
 h1 {

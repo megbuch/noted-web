@@ -8,5 +8,11 @@
     margin: 4px;
     border-radius: 8px;
     background-color: var(--blue-muted);
+    cursor: pointer;
+    transition: background-color 0.25s;
+
+    &:hover {
+      background-color: var(--periwinkle);
+    }
   }
 }
