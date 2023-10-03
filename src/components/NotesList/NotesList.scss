@@ -23,15 +23,27 @@
   }
 
   .note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 1em;
     margin: 0 0 8px 0;
     border-radius: 8px;
     background-color: var(--blue-muted);
     cursor: pointer;
-    transition: background-color 0.25s;
+    transition: background-color 0.3s, padding 0.3s;
+
+    button {
+      display: none;
+    }
 
     &:hover {
       background-color: var(--periwinkle);
+      padding: 1.5em 1em;
+
+      button {
+        display: inline-block;
+      }
     }
   }
 }

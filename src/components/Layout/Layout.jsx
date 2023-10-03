@@ -35,16 +35,12 @@ export default function Layout() {
     });
   }
 
-  function selectNote(note) {
-    setSelectedNote(note);
-    setEditMode(false);
-  }
-
   return (
     <div className="Layout">
       <NotesList
         notes={notes}
-        selectNote={selectNote}
+        setNotes={setNotes}
+        selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         setEditMode={setEditMode}
       />

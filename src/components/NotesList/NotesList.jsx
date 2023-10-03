@@ -1,15 +1,34 @@
 import { MdOutlineAddCircleOutline } from "react-icons/md";
+import { LuTrash2 } from "react-icons/lu";
 import "./NotesList.scss";
 
 export default function NotesList({
   notes,
-  selectNote,
+  setNotes,
   setSelectedNote,
   setEditMode,
 }) {
+  function selectNote(note) {
+    setSelectedNote(note);
+    setEditMode(false);
+  }
+
   function createNewNote() {
     setSelectedNote(null);
     setEditMode(true);
+  }
+
+  function deleteNote(noteToDelete) {
+    if (noteToDelete) {
+      localStorage.removeItem(noteToDelete.createdAt);
+
+      setNotes((prevNotes) => {
+        return prevNotes.filter((note) => note.createdAt != note.createdAt);
+      });
+
+      setSelectedNote(null);
+      setEditMode(true);
+    }
   }
 
   return (
@@ -33,6 +52,14 @@ export default function NotesList({
                   ? `${note.title.slice(0, 30)}...`
                   : note.title}
               </p>
+              <button
+                onClick={(event) => {
+                  event.stopPropagation();
+                  deleteNote(note);
+                }}
+              >
+                <LuTrash2 />
+              </button>
             </div>
           ))
       ) : (
