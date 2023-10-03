@@ -5,7 +5,7 @@ export default function NotesList({ notes }) {
   return (
     <div className="NotesList">
       {notes ? (
-        notes.map((note) => (
+        [...notes].reverse().map((note) => (
           <div className="note" key={note.createdAt}>
             <p>{note.title}</p>
           </div>

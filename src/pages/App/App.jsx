@@ -16,7 +16,7 @@ export default function App() {
       try {
         const note = JSON.parse(item);
         if (note && note.title && note.content) {
-          loadedNotes.unshift(note);
+          loadedNotes.push(note);
         }
       } catch (err) {
         console.error("Error parsing note from storage: ", err);
