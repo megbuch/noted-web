@@ -5,16 +5,22 @@
 
   .create-new-note {
     height: 40px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     margin: 0 0 8px 0;
-    font-size: 20px;
+    font-size: 16px;
     border: 1px solid var(--blue-muted);
     border-radius: 8px;
-    padding: 0.3em 0em;
+    padding: 1em;
     transition: background-color 0.25s;
+
+    p {
+      font-size: 12px;
+      margin: -2px 0 0 -1px;
+    }
 
     &:hover {
       background-color: var(--blue-muted-hover);

@@ -38,6 +38,11 @@ export default function Layout() {
     setNotes(savedNotes);
   }, []);
 
+  function createNewNote() {
+    setSelectedNote(null);
+    setEditMode(true);
+  }
+
   return (
     <div className="Layout">
       <FoldersList
@@ -45,6 +50,7 @@ export default function Layout() {
         setFolders={setFolders}
         selectedFolder={selectedFolder}
         setSelectedFolder={setSelectedFolder}
+        createNewNote={createNewNote}
       />
       <NotesList
         notes={notes}

@@ -1,9 +1,29 @@
 .NoteEditor {
-  width: 70vw;
+  width: 55vw;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 8px 0;
+
+    p {
+      font-size: 2em;
+    }
+
+    select {
+      font-size: 15px;
+      text-transform: capitalize;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5em;
+      background-color: var(--blue-gray);
+    }
+  }
 
   .tiptap {
     background-color: transparent;

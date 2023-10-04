@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { MdNotes, MdCreate } from "react-icons/md";
 import "./FoldersList.scss";
 
 export default function FoldersList({
   folders,
   setFolders,
+  selectedFolder,
   setSelectedFolder,
+  createNewNote,
 }) {
   const [isCreatingFolder, setIsCreatingFolder] = useState(false);
   const [folderName, setFolderName] = useState("");
@@ -23,8 +26,17 @@ export default function FoldersList({
     }
   }
 
+  function getFolderClassName(folder) {
+    if (selectedFolder === folder) return "folder active";
+    return "folder";
+  }
+
   return (
     <div className="FoldersList">
+      <div className="create-new-note" onClick={createNewNote}>
+        <MdCreate />
+        <p>Create New Note</p>
+      </div>
       {isCreatingFolder ? (
         <div>
           <input
@@ -36,15 +48,24 @@ export default function FoldersList({
           <button onClick={createNewFolder}>Confirm</button>
         </div>
       ) : (
-        <button onClick={() => setIsCreatingFolder(true)}>Create Folder</button>
+        <div
+          className="create-new-folder"
+          onClick={() => setIsCreatingFolder(true)}
+        >
+          <MdNotes />
+          <p>Create New Folder</p>
+        </div>
       )}
       <div className="folders">
-        <div onClick={() => setSelectedFolder(null)}>
+        <div
+          className={selectedFolder === null ? "folder active" : "folder"}
+          onClick={() => setSelectedFolder(null)}
+        >
           <p>All Notes</p>
         </div>
         {folders.map((folder, index) => (
           <div
-            className="folder"
+            className={getFolderClassName(folder)}
             key={index}
             onClick={() => setSelectedFolder(folder)}
           >

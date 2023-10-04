@@ -88,9 +88,9 @@ export default function NoteEditor({
 
   return (
     <div className={`NoteEditor ${editMode ? "editing" : ""}`}>
-      {editMode && (
+      <div className="header">
+        <p>{selectedNote?.title || "New Note"}</p>
         <select
-          // defaultValue={assignedFolder}
           value={assignedFolder}
           onChange={(e) => setAssignedFolder(e.target.value)}
         >
@@ -100,7 +100,8 @@ export default function NoteEditor({
             </option>
           ))}
         </select>
-      )}
+      </div>
+
       <EditorProvider
         key={selectedNote?.createdAt || Date.now()}
         content={selectedNote?.content || ""}

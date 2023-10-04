@@ -14,11 +14,6 @@ export default function NotesList({
     setEditMode(false);
   }
 
-  function createNewNote() {
-    setSelectedNote(null);
-    setEditMode(true);
-  }
-
   function deleteNote(noteToDelete) {
     if (noteToDelete) {
       localStorage.removeItem(noteToDelete.createdAt);
@@ -36,10 +31,6 @@ export default function NotesList({
 
   return (
     <div className="NotesList">
-      <div className="create-new-note" onClick={createNewNote}>
-        <MdOutlineAddCircleOutline />
-        <p>Create New Note</p>
-      </div>
       {notes ? (
         notes
           .slice()
