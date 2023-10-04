@@ -87,11 +87,16 @@
     cursor: pointer;
 
     .folder {
+      display: flex;
+      justify-content: space-between;
       transition: color 0.25s;
       line-height: 2;
       border-bottom: 1px solid transparent;
       transition: border-bottom 0.2s, color 0.2s;
 
+      .trash-icon {
+        display: none;
+      }
       &:hover {
         color: var(--periwinkle-light);
         border-bottom: 1px solid var(--periwinkle-light);
@@ -101,6 +106,15 @@
     .active {
       color: var(--periwinkle-light);
       border-bottom: 1px solid var(--periwinkle-light);
+
+      .trash-icon {
+        display: inline-block;
+        transition: color 0.25s;
+
+        &:hover {
+          color: var(--white);
+        }
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LuTrash2 } from "react-icons/lu";
 import { MdNotes, MdCreate, MdCheck, MdOutlineArrowBack } from "react-icons/md";
 import "./FoldersList.scss";
 
@@ -11,6 +12,7 @@ export default function FoldersList({
 }) {
   const [isCreatingFolder, setIsCreatingFolder] = useState(false);
   const [folderName, setFolderName] = useState("");
+  const unassignedFolder = folders[0];
 
   function createNewFolder() {
     folderName.toLowerCase();
@@ -26,12 +28,23 @@ export default function FoldersList({
     }
   }
 
+  function deleteFolder(folderToDelete) {
+    const updatedFolders = [...folders];
+    const index = updatedFolders.findIndex(
+      (folder) => folder === folderToDelete
+    );
+    if (index !== -1) {
+      updatedFolders.splice(index, 1);
+    }
+    setFolders(updatedFolders);
+    localStorage.setItem("folders", JSON.stringify(updatedFolders));
+  }
+
   function getFolderClassName(folder) {
     if (selectedFolder === folder) return "folder active";
     return "folder";
   }
 
-  // TODO: Need a back icon on create a folder. So a user can go back to not creating one.
   return (
     <div className="FoldersList">
       <div className="create-new-note" onClick={createNewNote}>
@@ -69,15 +82,35 @@ export default function FoldersList({
         >
           <p>All Notes</p>
         </div>
-        {folders.sort().map((folder, index) => (
-          <div
-            className={getFolderClassName(folder)}
-            key={index}
-            onClick={() => setSelectedFolder(folder)}
-          >
-            <p>{folder}</p>
-          </div>
-        ))}
+        <div
+          className={
+            selectedFolder === "Unassigned" ? "folder active" : "folder"
+          }
+          onClick={() => setSelectedFolder("Unassigned")}
+        >
+          <p>{unassignedFolder}</p>
+        </div>
+        {folders
+          .slice(1)
+          .sort()
+          .map((folder, index) => (
+            <div
+              className={getFolderClassName(folder)}
+              key={index}
+              onClick={() => setSelectedFolder(folder)}
+            >
+              <p>{folder}</p>
+              <div
+                className="trash-icon"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  deleteFolder(folder);
+                }}
+              >
+                <LuTrash2 />
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );
