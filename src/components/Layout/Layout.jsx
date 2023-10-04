@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FoldersList from "../FoldersList/FoldersList.jsx";
 import NotesList from "../NotesList/NotesList.jsx";
 import NoteEditor from "../Note/NoteEditor/NoteEditor.jsx";
 import "./Layout.scss";
@@ -6,6 +7,8 @@ import "./Layout.scss";
 export default function Layout() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
+  const [folders, setFolders] = useState(["Unassigned"]);
+  const [selectedFolder, setSelectedFolder] = useState(null);
   const [editMode, setEditMode] = useState(true);
 
   useEffect(() => {
@@ -18,6 +21,10 @@ export default function Layout() {
       try {
         const note = JSON.parse(item);
         if (note && note.title && note.content) {
+          if (!folders.includes(note.folder)) {
+            note.folder = "Unassigned";
+            localStorage.setItem(key, JSON.stringify(note));
+          }
           loadedNotes.push(note);
         }
       } catch (err) {
@@ -26,7 +33,7 @@ export default function Layout() {
     }
 
     setNotes(loadedNotes);
-  }, []);
+  }, [folders]);
 
   function addNoteToNotesList(newNote) {
     setNotes((prevNotes) => {
@@ -37,12 +44,19 @@ export default function Layout() {
 
   return (
     <div className="Layout">
+      <FoldersList
+        folders={folders}
+        setFolders={setFolders}
+        selectedFolder={selectedFolder}
+        setSelectedFolder={setSelectedFolder}
+      />
       <NotesList
         notes={notes}
         setNotes={setNotes}
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         setEditMode={setEditMode}
+        selectedFolder={selectedFolder}
       />
       <NoteEditor
         setNotes={setNotes}
@@ -51,6 +65,7 @@ export default function Layout() {
         addNoteToNotesList={addNoteToNotesList}
         editMode={editMode}
         setEditMode={setEditMode}
+        folders={folders}
       />
     </div>
   );

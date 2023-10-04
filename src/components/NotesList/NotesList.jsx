@@ -23,7 +23,9 @@ export default function NotesList({
       localStorage.removeItem(noteToDelete.createdAt);
 
       setNotes((prevNotes) => {
-        return prevNotes.filter((note) => note.createdAt != note.createdAt);
+        return prevNotes.filter(
+          (currentNote) => currentNote.createdAt != noteToDelete.createdAt
+        );
       });
 
       setSelectedNote(null);
