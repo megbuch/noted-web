@@ -12,7 +12,6 @@ export default function NoteEditor({
   setNotes,
   selectedNote,
   setSelectedNote,
-  addNoteToNotesList,
   editMode,
   setEditMode,
   folders,
@@ -20,11 +19,7 @@ export default function NoteEditor({
   const [assignedFolder, setAssignedFolder] = useState("");
 
   useEffect(() => {
-    if (selectedNote && selectedNote.folder) {
-      setAssignedFolder(selectedNote.folder);
-    } else if (folders && folders.length > 0) {
-      setAssignedFolder(folders[0]); // default to the first folder
-    }
+    setAssignedFolder(selectedNote?.folder || folders[0]);
   }, [selectedNote, folders]);
 
   const extensions = [
@@ -46,7 +41,6 @@ export default function NoteEditor({
   ];
 
   function saveNote(userInput) {
-    console.log(assignedFolder);
     let createdAt = selectedNote ? selectedNote.createdAt : Date.now();
     let title = extractTitleFromHTML(userInput);
 
@@ -61,8 +55,17 @@ export default function NoteEditor({
       folder: assignedFolder || folders[0],
     };
 
+    /* TODO: In the future, wrap anything with setting in local storage
+     in a try catch block, and in the catch, display some Toast alert
+     notifying a user that their storage limit has been reached. */
     localStorage.setItem(createdAt, JSON.stringify(newNote));
+    updateNotesList(newNote);
 
+    setSelectedNote(newNote);
+    setEditMode(false);
+  }
+
+  function updateNotesList(newNote) {
     if (selectedNote) {
       setNotes((prevNotes) => {
         return prevNotes.map((note) =>
@@ -70,11 +73,8 @@ export default function NoteEditor({
         );
       });
     } else {
-      addNoteToNotesList(newNote);
+      setNotes((prevNotes) => [...prevNotes, newNote]);
     }
-
-    setSelectedNote(newNote);
-    setEditMode(false);
   }
 
   function extractTitleFromHTML(htmlContent) {

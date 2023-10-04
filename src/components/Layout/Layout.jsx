@@ -35,13 +35,6 @@ export default function Layout() {
     setNotes(loadedNotes);
   }, [folders]);
 
-  function addNoteToNotesList(newNote) {
-    setNotes((prevNotes) => {
-      const updatedNotes = [...prevNotes, newNote];
-      return updatedNotes;
-    });
-  }
-
   return (
     <div className="Layout">
       <FoldersList
@@ -62,7 +55,6 @@ export default function Layout() {
         setNotes={setNotes}
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
-        addNoteToNotesList={addNoteToNotesList}
         editMode={editMode}
         setEditMode={setEditMode}
         folders={folders}

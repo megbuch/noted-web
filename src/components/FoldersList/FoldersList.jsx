@@ -14,7 +14,7 @@ export default function FoldersList({
       setIsCreatingFolder(false);
       setFolderName("");
     } else {
-      // Todo: Use toast alert.
+      // TODO: Use toast alert.
       alert("Folder name is empty or already exists!");
     }
   }
