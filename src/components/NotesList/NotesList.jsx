@@ -1,4 +1,3 @@
-import { MdOutlineAddCircleOutline } from "react-icons/md";
 import { LuTrash2 } from "react-icons/lu";
 import "./NotesList.scss";
 

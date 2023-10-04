@@ -21,6 +21,8 @@
   --blue-muted-dark: #14141f;
   --periwinkle: #464fff;
   --periwinkle-light: #c7cbff;
+  --periwinkle-light-hover: #a1a7ff;
+  --periwinkle-light: #c7cbff;
   --code: #fff1e6;
 }
 
@@ -88,10 +90,11 @@ button {
   &:hover {
     border-color: var(--periwinkle);
   }
+}
 
-  &:focus,
-  &:focus-visible,
-  &:active {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
+input:focus,
+textarea:focus,
+[contenteditable]:focus {
+  outline: 2px solid var(--periwinkle-light);
+  box-shadow: 0 0 3px var(--periwinkle);
 }

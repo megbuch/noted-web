@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdNotes, MdCreate } from "react-icons/md";
+import { MdNotes, MdCreate, MdCheck, MdOutlineArrowBack } from "react-icons/md";
 import "./FoldersList.scss";
 
 export default function FoldersList({
@@ -31,6 +31,7 @@ export default function FoldersList({
     return "folder";
   }
 
+  // TODO: Need a back icon on create a folder. So a user can go back to not creating one.
   return (
     <div className="FoldersList">
       <div className="create-new-note" onClick={createNewNote}>
@@ -38,14 +39,19 @@ export default function FoldersList({
         <p>Create New Note</p>
       </div>
       {isCreatingFolder ? (
-        <div>
+        <div className="enter-folder-name">
+          <div className="icon" onClick={() => setIsCreatingFolder(false)}>
+            <MdOutlineArrowBack />
+          </div>
           <input
             type="text"
             placeholder="Enter a folder name"
             value={folderName}
             onChange={(e) => setFolderName(e.target.value)}
           />
-          <button onClick={createNewFolder}>Confirm</button>
+          <div className="icon" onClick={createNewFolder}>
+            <MdCheck />
+          </div>
         </div>
       ) : (
         <div
