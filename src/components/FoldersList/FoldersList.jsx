@@ -69,7 +69,7 @@ export default function FoldersList({
         >
           <p>All Notes</p>
         </div>
-        {folders.map((folder, index) => (
+        {folders.sort().map((folder, index) => (
           <div
             className={getFolderClassName(folder)}
             key={index}
