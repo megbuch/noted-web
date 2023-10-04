@@ -60,7 +60,6 @@ export default function NoteEditor({
      notifying a user that their storage limit has been reached. */
     localStorage.setItem(createdAt, JSON.stringify(newNote));
     updateNotesList(newNote);
-
     setSelectedNote(newNote);
     setEditMode(false);
   }

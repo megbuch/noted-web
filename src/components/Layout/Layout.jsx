@@ -12,7 +12,16 @@ export default function Layout() {
   const [editMode, setEditMode] = useState(true);
 
   useEffect(() => {
-    const loadedNotes = [];
+    const savedFolders = localStorage.getItem("folders");
+    if (savedFolders) {
+      setFolders(JSON.parse(savedFolders));
+    } else {
+      setFolders(["Unassigned"]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const savedNotes = [];
 
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
@@ -25,14 +34,14 @@ export default function Layout() {
             note.folder = "Unassigned";
             localStorage.setItem(key, JSON.stringify(note));
           }
-          loadedNotes.push(note);
+          savedNotes.push(note);
         }
       } catch (err) {
         console.error("Error parsing note from storage: ", err);
       }
     }
 
-    setNotes(loadedNotes);
+    setNotes(savedNotes);
   }, [folders]);
 
   return (

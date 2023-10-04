@@ -10,7 +10,9 @@ export default function FoldersList({
 
   function createNewFolder() {
     if (folderName && !folders.includes(folderName)) {
-      setFolders((prevFolders) => [...prevFolders, folderName]);
+      const updatedFolders = [...folders, folderName];
+      localStorage.setItem("folders", JSON.stringify(updatedFolders));
+      setFolders(updatedFolders);
       setIsCreatingFolder(false);
       setFolderName("");
     } else {
@@ -18,6 +20,8 @@ export default function FoldersList({
       alert("Folder name is empty or already exists!");
     }
   }
+
+  console.log(folders);
 
   return (
     <div className="FoldersList">
