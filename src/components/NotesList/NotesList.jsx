@@ -7,6 +7,7 @@ export default function NotesList({
   setNotes,
   setSelectedNote,
   setEditMode,
+  selectedFolder,
 }) {
   function selectNote(note) {
     setSelectedNote(note);
@@ -43,6 +44,7 @@ export default function NotesList({
         notes
           .slice()
           .sort((a, b) => b.createdAt - a.createdAt)
+          .filter((note) => !selectedFolder || note.folder === selectedFolder)
           .map((note) => (
             <div
               className="note"

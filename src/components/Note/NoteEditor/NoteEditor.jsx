@@ -16,7 +16,9 @@ export default function NoteEditor({
   setEditMode,
   folders,
 }) {
-  const [assignedFolder, setAssignedFolder] = useState("");
+  const [assignedFolder, setAssignedFolder] = useState(
+    selectedNote?.folder || folders[0]
+  );
 
   useEffect(() => {
     setAssignedFolder(selectedNote?.folder || folders[0]);
@@ -88,7 +90,8 @@ export default function NoteEditor({
     <div className={`NoteEditor ${editMode ? "editing" : ""}`}>
       {editMode && (
         <select
-          defaultValue={assignedFolder}
+          // defaultValue={assignedFolder}
+          value={assignedFolder}
           onChange={(e) => setAssignedFolder(e.target.value)}
         >
           {folders.map((folder, index) => (

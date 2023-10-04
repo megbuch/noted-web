@@ -1,0 +1,9 @@
+.FoldersList {
+  .folders {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+}

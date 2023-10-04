@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./FoldersList.scss";
 
 export default function FoldersList({
   folders,
@@ -9,6 +10,7 @@ export default function FoldersList({
   const [folderName, setFolderName] = useState("");
 
   function createNewFolder() {
+    folderName.toLowerCase();
     if (folderName && !folders.includes(folderName)) {
       const updatedFolders = [...folders, folderName];
       localStorage.setItem("folders", JSON.stringify(updatedFolders));
@@ -21,11 +23,8 @@ export default function FoldersList({
     }
   }
 
-  console.log(folders);
-
   return (
     <div className="FoldersList">
-      <h1>Folders</h1>
       {isCreatingFolder ? (
         <div>
           <input
@@ -40,6 +39,9 @@ export default function FoldersList({
         <button onClick={() => setIsCreatingFolder(true)}>Create Folder</button>
       )}
       <div className="folders">
+        <div onClick={() => setSelectedFolder(null)}>
+          <p>All Notes</p>
+        </div>
         {folders.map((folder, index) => (
           <div
             className="folder"
