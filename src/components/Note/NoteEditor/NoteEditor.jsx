@@ -103,7 +103,7 @@ export default function NoteEditor({
       </div>
 
       <EditorProvider
-        key={selectedNote?.createdAt || Date.now()}
+        key={selectedNote?.createdAt}
         content={selectedNote?.content || ""}
         editable={editMode}
         extensions={extensions}

@@ -9,6 +9,8 @@ export default function FoldersList({
   selectedFolder,
   setSelectedFolder,
   createNewNote,
+  notes,
+  setNotes,
 }) {
   const [isCreatingFolder, setIsCreatingFolder] = useState(false);
   const [folderName, setFolderName] = useState("");
@@ -36,8 +38,18 @@ export default function FoldersList({
     if (index !== -1) {
       updatedFolders.splice(index, 1);
     }
-    setFolders(updatedFolders);
     localStorage.setItem("folders", JSON.stringify(updatedFolders));
+    setFolders(updatedFolders);
+
+    const updatedNotes = notes.map((note) => {
+      if (note.folder === folderToDelete) {
+        const updatedNote = { ...note, folder: "Unassigned" };
+        localStorage.setItem(note.createdAt, JSON.stringify(updatedNote));
+        return updatedNote;
+      }
+      return note;
+    });
+    setNotes(updatedNotes);
   }
 
   function getFolderClassName(folder) {

@@ -51,6 +51,8 @@ export default function Layout() {
         selectedFolder={selectedFolder}
         setSelectedFolder={setSelectedFolder}
         createNewNote={createNewNote}
+        notes={notes}
+        setNotes={setNotes}
       />
       <NotesList
         notes={notes}
