@@ -98,3 +98,10 @@ textarea:focus,
   outline: 2px solid var(--periwinkle-light);
   box-shadow: 0 0 3px var(--periwinkle);
 }
+
+input {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em;
+  background-color: var(--blue-gray);
+}

@@ -70,7 +70,7 @@ export default function FoldersList({
           </div>
           <input
             type="text"
-            placeholder="Enter a folder name"
+            placeholder="Folder name"
             value={folderName}
             onChange={(e) => setFolderName(e.target.value)}
           />

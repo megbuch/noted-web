@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import "./NotesList.scss";
 
@@ -8,6 +9,8 @@ export default function NotesList({
   setEditMode,
   selectedFolder,
 }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
   function selectNote(note) {
     setSelectedNote(note);
     setEditMode(false);
@@ -28,10 +31,19 @@ export default function NotesList({
     }
   }
 
+  const filteredNotes = notes.filter((note) =>
+    note.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="NotesList">
+      <input
+        type="text"
+        placeholder="Search Notes.."
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       {notes ? (
-        notes
+        filteredNotes
           .slice()
           .sort((a, b) => b.createdAt - a.createdAt)
           .filter((note) => !selectedFolder || note.folder === selectedFolder)
