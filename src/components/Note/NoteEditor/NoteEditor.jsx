@@ -90,16 +90,18 @@ export default function NoteEditor({
     <div className={`NoteEditor ${editMode ? "editing" : ""}`}>
       <div className="header">
         <p>{selectedNote?.title || "New Note"}</p>
-        <select
-          value={assignedFolder}
-          onChange={(e) => setAssignedFolder(e.target.value)}
-        >
-          {folders.map((folder, index) => (
-            <option key={index} value={folder}>
-              {folder}
-            </option>
-          ))}
-        </select>
+        {editMode && (
+          <select
+            value={assignedFolder}
+            onChange={(e) => setAssignedFolder(e.target.value)}
+          >
+            {folders.map((folder, index) => (
+              <option key={index} value={folder}>
+                {folder}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       <EditorProvider
