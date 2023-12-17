@@ -32,30 +32,14 @@
     padding: 1em;
     text-align: left;
 
-    p.is-editor-empty:first-child::before {
-      color: #adb5bd;
-      content: attr(data-placeholder);
-      float: left;
-      height: 0;
-      pointer-events: none;
-    }
-
-    > * + * {
-      margin: 0.5em;
+    * {
+      margin: 0;
+      padding: 0;
     }
 
     ul,
     ol {
       padding: 0 1rem;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      line-height: 1.7;
     }
 
     code {

@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { EditorProvider, EditorContent } from "@tiptap/react";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
 import StarterKit from "@tiptap/starter-kit";
-import EditorToolbar from "../EditorToolbar/EditorToolbar.jsx";
+import EditorToolbar from "./EditorToolbar/EditorToolbar.jsx";
 import "./NoteEditor.scss";
-
+import { MdOutlineSave, MdOutlineEdit } from "react-icons/md";
 export default function NoteEditor({
   setNotes,
   selectedNote,
@@ -19,9 +19,12 @@ export default function NoteEditor({
   const [assignedFolder, setAssignedFolder] = useState(
     selectedNote?.folder || folders[0]
   );
+  const [title, setTitle] = useState("");
+  const editorRef = useRef();
 
   useEffect(() => {
     setAssignedFolder(selectedNote?.folder || folders[0]);
+    setTitle(selectedNote?.title || "");
   }, [selectedNote, folders]);
 
   const extensions = [
@@ -44,7 +47,6 @@ export default function NoteEditor({
 
   function saveNote(userInput) {
     let createdAt = selectedNote ? selectedNote.createdAt : Date.now();
-    let title = extractTitleFromHTML(userInput);
 
     if (selectedNote) {
       localStorage.removeItem(selectedNote.createdAt);
@@ -78,18 +80,19 @@ export default function NoteEditor({
     }
   }
 
-  function extractTitleFromHTML(htmlContent) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, "text/html");
-    const firstElement = doc.body.querySelector("p, h1, h2, h3, h4, h5, h6");
-    if (!firstElement) return "Empty note";
-    return firstElement.textContent || firstElement.innerText;
-  }
-
   return (
     <div className={`NoteEditor ${editMode ? "editing" : ""}`}>
       <div className="header">
-        <p>{selectedNote?.title || "New Note"}</p>
+        {editMode ? (
+          <input
+            type="text"
+            placeholder="Note name"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        ) : (
+          <p> {selectedNote?.title}</p>
+        )}
         {editMode && (
           <select
             value={assignedFolder}
@@ -102,6 +105,21 @@ export default function NoteEditor({
             ))}
           </select>
         )}
+        {editMode ? (
+          <MdOutlineSave
+            className="icon"
+            size={30}
+            onClick={() => {
+              saveNote(editorRef.current.getHTML());
+            }}
+          />
+        ) : (
+          <MdOutlineEdit
+            className="icon"
+            size={30}
+            onClick={() => setEditMode(true)}
+          />
+        )}
       </div>
 
       <EditorProvider
@@ -110,11 +128,14 @@ export default function NoteEditor({
         editable={editMode}
         extensions={extensions}
         slotBefore={
-          <EditorToolbar
-            editMode={editMode}
-            setEditMode={setEditMode}
-            saveNote={saveNote}
-          />
+          editMode && (
+            <EditorToolbar
+              editMode={editMode}
+              setEditMode={setEditMode}
+              editorRef={editorRef}
+              saveNote={saveNote}
+            />
+          )
         }
       >
         <EditorContent />

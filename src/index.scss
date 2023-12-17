@@ -1,5 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&display=swap");
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Nunito, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -47,20 +48,19 @@ body {
 }
 
 h1 {
-  font-size: 2.8em;
-  line-height: 1.1;
+  font-size: 3em;
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 2.2em;
 }
 
 h3 {
-  font-size: 1.6em;
+  font-size: 1.7em;
 }
 
 h4 {
-  font-size: 1.3em;
+  font-size: 1.4em;
 }
 
 h5 {
@@ -81,7 +81,6 @@ button {
   padding: 0.5em;
   line-height: 0;
   font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
   background-color: var(--blue-muted);
   cursor: pointer;
@@ -104,4 +103,14 @@ input {
   border-radius: 8px;
   padding: 0.5em;
   background-color: var(--blue-gray);
+}
+
+.icon {
+  cursor: pointer;
+  color: var(--periwinkle-light);
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--periwinkle-light-hover);
+  }
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import FoldersList from "../FoldersList/FoldersList.jsx";
 import NotesList from "../NotesList/NotesList.jsx";
-import NoteEditor from "../Note/NoteEditor/NoteEditor.jsx";
+import NoteEditor from "../NoteEditor/NoteEditor.jsx";
 import "./Layout.scss";
 
 export default function Layout() {
