@@ -114,21 +114,3 @@ input {
     color: var(--periwinkle-light-hover);
   }
 }
-
-.create-new-folder,
-.create-new-note {
-  height: 40px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 18px;
-  border: 1px solid var(--blue-muted);
-  border-radius: 8px;
-  transition: background-color 0.25s;
-
-  p {
-    font-size: 13px;
-  }
-}

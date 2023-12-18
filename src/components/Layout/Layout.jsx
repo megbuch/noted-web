@@ -38,9 +38,23 @@ export default function Layout() {
     setNotes(savedNotes);
   }, []);
 
-  function createNewNote() {
+  function createNote() {
     setSelectedNote(null);
     setSelectedFolder(null);
+    setEditMode(true);
+  }
+
+  function createNoteWithFolder(folder) {
+    setSelectedFolder(folder);
+
+    const newNote = {
+      title: "",
+      content: "",
+      createdAt: Date.now(),
+      folder: folder,
+    };
+
+    setSelectedNote(newNote);
     setEditMode(true);
   }
 
@@ -48,26 +62,29 @@ export default function Layout() {
     <div className="Layout">
       <FoldersList
         folders={folders}
+        createNote={createNote}
+        createNoteWithFolder={createNoteWithFolder}
         setFolders={setFolders}
         selectedFolder={selectedFolder}
-        setSelectedFolder={setSelectedFolder}
         notes={notes}
         setNotes={setNotes}
       />
       <NotesList
         notes={notes}
-        createNewNote={createNewNote}
+        createNote={createNote}
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         setEditMode={setEditMode}
         selectedFolder={selectedFolder}
       />
       <NoteEditor
+        notes={notes}
         setNotes={setNotes}
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         editMode={editMode}
         setEditMode={setEditMode}
+        selectedFolder={selectedFolder}
         folders={folders}
       />
     </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { EditorProvider, EditorContent } from "@tiptap/react";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
@@ -9,11 +9,13 @@ import EditorToolbar from "./EditorToolbar/EditorToolbar.jsx";
 import "./NoteEditor.scss";
 import { MdOutlineSave, MdOutlineEdit, MdDeleteOutline } from "react-icons/md";
 export default function NoteEditor({
+  notes,
   setNotes,
   selectedNote,
   setSelectedNote,
   editMode,
   setEditMode,
+  selectedFolder,
   folders,
 }) {
   const [assignedFolder, setAssignedFolder] = useState(
@@ -23,9 +25,9 @@ export default function NoteEditor({
   const editorRef = useRef();
 
   useEffect(() => {
-    setAssignedFolder(selectedNote?.folder || folders[0]);
+    setAssignedFolder(selectedFolder || selectedNote?.folder || folders[0]);
     setTitle(selectedNote?.title || "");
-  }, [selectedNote, folders]);
+  }, [selectedFolder, selectedNote, folders]);
 
   const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
@@ -46,11 +48,10 @@ export default function NoteEditor({
   ];
 
   function saveNote(userInput) {
+    let isNewNote = !notes.some(
+      (note) => note.createdAt === selectedNote?.createdAt
+    );
     let createdAt = selectedNote ? selectedNote.createdAt : Date.now();
-
-    if (selectedNote) {
-      localStorage.removeItem(selectedNote.createdAt);
-    }
 
     const newNote = {
       title: title,
@@ -63,21 +64,21 @@ export default function NoteEditor({
      in a try catch block, and in the catch, display some Toast alert
      notifying a user that their storage limit has been reached. */
     localStorage.setItem(createdAt, JSON.stringify(newNote));
-    updateNotesList(newNote);
+    updateNotesList(newNote, isNewNote);
     setSelectedNote(newNote);
     setEditMode(false);
   }
 
-  function updateNotesList(newNote) {
-    if (selectedNote) {
-      setNotes((prevNotes) => {
+  function updateNotesList(newNote, isNewNote) {
+    setNotes((prevNotes) => {
+      if (isNewNote) {
+        return [...prevNotes, newNote];
+      } else {
         return prevNotes.map((note) =>
-          note.createdAt === selectedNote.createdAt ? newNote : note
+          note.createdAt === newNote.createdAt ? newNote : note
         );
-      });
-    } else {
-      setNotes((prevNotes) => [...prevNotes, newNote]);
-    }
+      }
+    });
   }
 
   function deleteNote(noteToDelete) {

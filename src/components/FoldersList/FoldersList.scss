@@ -1,11 +1,40 @@
 .FoldersList {
   width: 18%;
 
+  .create-new-folder,
+  .create-new-note {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    border: 1px solid var(--blue-muted);
+    border-radius: 8px;
+    transition: background-color 0.25s;
+
+    p {
+      font-size: 13px;
+    }
+  }
+
   .create-new-folder {
     margin: 0 0 22px 0;
 
     &:hover {
       background-color: var(--blue-muted-hover);
+      cursor: pointer;
+    }
+  }
+
+  .create-new-note {
+    background-color: var(--periwinkle-light);
+    color: var(--blue-muted-hover);
+
+    &:hover {
+      background-color: var(--periwinkle-light-hover);
       cursor: pointer;
     }
   }

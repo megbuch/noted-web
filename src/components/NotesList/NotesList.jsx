@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { MdCreate } from "react-icons/md";
 import "./NotesList.scss";
 
 export default function NotesList({
   notes,
-  createNewNote,
   setSelectedNote,
   setEditMode,
   selectedFolder,
@@ -22,10 +20,6 @@ export default function NotesList({
 
   return (
     <div className="NotesList">
-      <div className="create-new-note" onClick={createNewNote}>
-        <MdCreate />
-        <p>Create New Note</p>
-      </div>
       <input
         type="text"
         placeholder="Search Notes.."

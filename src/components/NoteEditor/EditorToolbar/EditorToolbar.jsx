@@ -23,15 +23,14 @@ import {
 } from "react-icons/md";
 import "./EditorToolbar.scss";
 
-export default function EditorToolbar({ editMode, editorRef }) {
+export default function EditorToolbar({ editorRef }) {
   const { editor } = useCurrentEditor();
 
   useEffect(() => {
     if (editor) {
       editorRef.current = editor;
-      editor.setEditable(editMode);
     }
-  }, [editor, editorRef, editMode]);
+  }, [editor, editorRef]);
 
   return (
     <div className="EditorToolbar">

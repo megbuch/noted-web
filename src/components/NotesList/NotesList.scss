@@ -4,16 +4,6 @@
   flex-direction: column;
   gap: 8px;
 
-  .create-new-note {
-    background-color: var(--periwinkle-light);
-    color: var(--blue-muted-hover);
-
-    &:hover {
-      background-color: var(--periwinkle-light-hover);
-      cursor: pointer;
-    }
-  }
-
   .note {
     display: flex;
     align-items: center;

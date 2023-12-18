@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
-import { MdNotes, MdCheck, MdOutlineArrowBack } from "react-icons/md";
+import { MdNotes, MdCreate, MdCheck, MdOutlineArrowBack } from "react-icons/md";
 import "./FoldersList.scss";
 
 export default function FoldersList({
   folders,
   setFolders,
+  createNote,
+  createNoteWithFolder,
   selectedFolder,
-  setSelectedFolder,
   notes,
   setNotes,
 }) {
@@ -74,18 +75,24 @@ export default function FoldersList({
           </div>
         </div>
       ) : (
-        <div
-          className="create-new-folder"
-          onClick={() => setIsCreatingFolder(true)}
-        >
-          <MdNotes />
-          <p>Create New Folder</p>
-        </div>
+        <>
+          <div className="create-new-note" onClick={createNote}>
+            <MdCreate />
+            <p>Create New Note</p>
+          </div>
+          <div
+            className="create-new-folder"
+            onClick={() => setIsCreatingFolder(true)}
+          >
+            <MdNotes />
+            <p>Create New Folder</p>
+          </div>
+        </>
       )}
       <div className="folders">
         <div
           className={selectedFolder === null ? "folder active" : "folder"}
-          onClick={() => setSelectedFolder(null)}
+          onClick={() => createNote()}
         >
           <p>All Notes</p>
         </div>
@@ -93,7 +100,7 @@ export default function FoldersList({
           className={
             selectedFolder === "Unassigned" ? "folder active" : "folder"
           }
-          onClick={() => setSelectedFolder("Unassigned")}
+          onClick={() => createNoteWithFolder("Unassigned")}
         >
           <p>{unassignedFolder}</p>
         </div>
@@ -104,7 +111,7 @@ export default function FoldersList({
             <div
               className={getFolderClassName(folder)}
               key={index}
-              onClick={() => setSelectedFolder(folder)}
+              onClick={() => createNoteWithFolder(folder)}
             >
               <p>{folder}</p>
               <div
