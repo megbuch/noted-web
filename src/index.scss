@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&display=swap");
 :root {
-  font-family: Nunito, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: var(--blue-muted-dark);
@@ -31,6 +27,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Nunito, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
 }
 
 a {
@@ -98,7 +96,9 @@ textarea:focus,
   box-shadow: 0 0 3px var(--periwinkle);
 }
 
+select,
 input {
+  font-size: 15px;
   border: none;
   border-radius: 8px;
   padding: 0.5em;
@@ -112,5 +112,23 @@ input {
 
   &:hover {
     color: var(--periwinkle-light-hover);
+  }
+}
+
+.create-new-folder,
+.create-new-note {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 18px;
+  border: 1px solid var(--blue-muted);
+  border-radius: 8px;
+  transition: background-color 0.25s;
+
+  p {
+    font-size: 13px;
   }
 }

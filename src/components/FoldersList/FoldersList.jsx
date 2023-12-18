@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
-import { MdNotes, MdCreate, MdCheck, MdOutlineArrowBack } from "react-icons/md";
+import { MdNotes, MdCheck, MdOutlineArrowBack } from "react-icons/md";
 import "./FoldersList.scss";
 
 export default function FoldersList({
@@ -8,7 +8,6 @@ export default function FoldersList({
   setFolders,
   selectedFolder,
   setSelectedFolder,
-  createNewNote,
   notes,
   setNotes,
 }) {
@@ -59,10 +58,6 @@ export default function FoldersList({
 
   return (
     <div className="FoldersList">
-      <div className="create-new-note" onClick={createNewNote}>
-        <MdCreate />
-        <p>Create New Note</p>
-      </div>
       {isCreatingFolder ? (
         <div className="enter-folder-name">
           <div className="icon" onClick={() => setIsCreatingFolder(false)}>

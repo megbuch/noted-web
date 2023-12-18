@@ -7,7 +7,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import StarterKit from "@tiptap/starter-kit";
 import EditorToolbar from "./EditorToolbar/EditorToolbar.jsx";
 import "./NoteEditor.scss";
-import { MdOutlineSave, MdOutlineEdit } from "react-icons/md";
+import { MdOutlineSave, MdOutlineEdit, MdDeleteOutline } from "react-icons/md";
 export default function NoteEditor({
   setNotes,
   selectedNote,
@@ -80,6 +80,21 @@ export default function NoteEditor({
     }
   }
 
+  function deleteNote(noteToDelete) {
+    if (noteToDelete) {
+      localStorage.removeItem(noteToDelete.createdAt);
+
+      setNotes((prevNotes) => {
+        return prevNotes.filter(
+          (currentNote) => currentNote.createdAt != noteToDelete.createdAt
+        );
+      });
+
+      setSelectedNote(null);
+      setEditMode(true);
+    }
+  }
+
   return (
     <div className={`NoteEditor ${editMode ? "editing" : ""}`}>
       <div className="header">
@@ -106,17 +121,27 @@ export default function NoteEditor({
           </select>
         )}
         {editMode ? (
-          <MdOutlineSave
-            className="icon"
-            size={30}
-            onClick={() => {
-              saveNote(editorRef.current.getHTML());
-            }}
-          />
+          <>
+            <MdDeleteOutline
+              className="icon"
+              size={25}
+              onClick={(event) => {
+                event.stopPropagation();
+                deleteNote(selectedNote);
+              }}
+            />
+            <MdOutlineSave
+              className="icon"
+              size={25}
+              onClick={() => {
+                saveNote(editorRef.current.getHTML());
+              }}
+            />
+          </>
         ) : (
           <MdOutlineEdit
             className="icon"
-            size={30}
+            size={25}
             onClick={() => setEditMode(true)}
           />
         )}
@@ -133,7 +158,6 @@ export default function NoteEditor({
               editMode={editMode}
               setEditMode={setEditMode}
               editorRef={editorRef}
-              saveNote={saveNote}
             />
           )
         }

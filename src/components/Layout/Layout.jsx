@@ -40,6 +40,7 @@ export default function Layout() {
 
   function createNewNote() {
     setSelectedNote(null);
+    setSelectedFolder(null);
     setEditMode(true);
   }
 
@@ -50,13 +51,12 @@ export default function Layout() {
         setFolders={setFolders}
         selectedFolder={selectedFolder}
         setSelectedFolder={setSelectedFolder}
-        createNewNote={createNewNote}
         notes={notes}
         setNotes={setNotes}
       />
       <NotesList
         notes={notes}
-        setNotes={setNotes}
+        createNewNote={createNewNote}
         selectedNote={selectedNote}
         setSelectedNote={setSelectedNote}
         setEditMode={setEditMode}
