@@ -22,18 +22,22 @@ export default function NoteEditor({
     selectedNote?.folder || folders[0]
   );
   const [title, setTitle] = useState("");
+  const [isNewNote, setIsNewNote] = useState(false);
   const editorRef = useRef();
 
   useEffect(() => {
     setAssignedFolder(selectedFolder || selectedNote?.folder || folders[0]);
     setTitle(selectedNote?.title || "");
-  }, [selectedFolder, selectedNote, folders]);
+    setIsNewNote(
+      !notes.some((note) => note.createdAt === selectedNote?.createdAt)
+    );
+  }, [folders, selectedFolder, notes, selectedNote]);
 
   const extensions = [
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     TextStyle.configure({ types: [ListItem.name] }),
     Placeholder.configure({
-      placeholder: "Enter your note title here, on the first line.",
+      placeholder: "Start writing your brilliant thoughts.",
     }),
     StarterKit.configure({
       bulletList: {
@@ -48,9 +52,11 @@ export default function NoteEditor({
   ];
 
   function saveNote(userInput) {
-    let isNewNote = !notes.some(
+    const isNew = !notes.some(
       (note) => note.createdAt === selectedNote?.createdAt
     );
+    setIsNewNote(isNew);
+
     let createdAt = selectedNote ? selectedNote.createdAt : Date.now();
 
     const newNote = {
@@ -64,14 +70,14 @@ export default function NoteEditor({
      in a try catch block, and in the catch, display some Toast alert
      notifying a user that their storage limit has been reached. */
     localStorage.setItem(createdAt, JSON.stringify(newNote));
-    updateNotesList(newNote, isNewNote);
+    updateNotesList(newNote, isNew);
     setSelectedNote(newNote);
     setEditMode(false);
   }
 
-  function updateNotesList(newNote, isNewNote) {
+  function updateNotesList(newNote, isNew) {
     setNotes((prevNotes) => {
-      if (isNewNote) {
+      if (isNew) {
         return [...prevNotes, newNote];
       } else {
         return prevNotes.map((note) =>
@@ -102,13 +108,14 @@ export default function NoteEditor({
         {editMode ? (
           <input
             type="text"
-            placeholder="Note name"
+            placeholder="Start with a title!"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         ) : (
           <p> {selectedNote?.title}</p>
         )}
+
         {editMode && (
           <select
             value={assignedFolder}
@@ -121,25 +128,29 @@ export default function NoteEditor({
             ))}
           </select>
         )}
-        {editMode ? (
-          <>
-            <MdDeleteOutline
-              className="icon"
-              size={25}
-              onClick={(event) => {
-                event.stopPropagation();
-                deleteNote(selectedNote);
-              }}
-            />
-            <MdOutlineSave
-              className="icon"
-              size={25}
-              onClick={() => {
-                saveNote(editorRef.current.getHTML());
-              }}
-            />
-          </>
-        ) : (
+
+        {editMode && !isNewNote && (
+          <MdDeleteOutline
+            className="icon"
+            size={25}
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteNote(selectedNote);
+            }}
+          />
+        )}
+
+        {editMode && title && (
+          <MdOutlineSave
+            className="icon"
+            size={25}
+            onClick={() => {
+              saveNote(editorRef.current.getHTML());
+            }}
+          />
+        )}
+
+        {!editMode && (
           <MdOutlineEdit
             className="icon"
             size={25}
@@ -148,23 +159,25 @@ export default function NoteEditor({
         )}
       </div>
 
-      <EditorProvider
-        key={selectedNote?.createdAt}
-        content={selectedNote?.content || ""}
-        editable={editMode}
-        extensions={extensions}
-        slotBefore={
-          editMode && (
-            <EditorToolbar
-              editMode={editMode}
-              setEditMode={setEditMode}
-              editorRef={editorRef}
-            />
-          )
-        }
-      >
-        <EditorContent />
-      </EditorProvider>
+      {editMode && title && (
+        <EditorProvider
+          key={selectedNote?.createdAt}
+          content={selectedNote?.content || ""}
+          editable={editMode}
+          extensions={extensions}
+          slotBefore={
+            editMode && (
+              <EditorToolbar
+                editMode={editMode}
+                setEditMode={setEditMode}
+                editorRef={editorRef}
+              />
+            )
+          }
+        >
+          <EditorContent />
+        </EditorProvider>
+      )}
     </div>
   );
 }
